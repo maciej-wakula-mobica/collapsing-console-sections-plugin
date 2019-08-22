@@ -54,6 +54,8 @@ public class CollapsingSectionNote extends ConsoleNote {
     private String sectionStartPattern;
     @Nonnull
     private String sectionEndPattern;
+	@Nonnull
+	private String sectionMarker;
     private boolean collapseAllSections;
     private boolean collapseSection;
 

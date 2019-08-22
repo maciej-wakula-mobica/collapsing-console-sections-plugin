@@ -40,11 +40,13 @@ public class SectionDefinition implements Serializable {
     private boolean collapseAllSections;
     private boolean collapseSection;
 
+	private String tmpName;
+
     /**
      * @deprecated Use {@link #SectionDefinition(java.lang.String, java.lang.String, java.lang.String, boolean, boolean)} instead.
      */
     @Deprecated
-    public SectionDefinition(String sectionName, String sectionStartPattern, String sectionEndPattern) {
+    public SectionDefinition(String sectionName, String sectionStartPattern, String sectionEndPattern, String sectionMarker) {
         this(sectionName, sectionStartPattern, sectionEndPattern, false, false);
     }
 

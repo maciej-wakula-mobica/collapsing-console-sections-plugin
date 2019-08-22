@@ -44,7 +44,7 @@ public class CollapsingSectionAnnotator extends ConsoleAnnotator<Object> {
     
     @Nonnull
     private Stack<StackLevel> numberingStack;
-    
+
     @Nonnull
     private CollapsingSectionsConfiguration configs;
 
@@ -53,7 +53,7 @@ public class CollapsingSectionAnnotator extends ConsoleAnnotator<Object> {
         this.sections = Arrays.asList(configs.getSectionDefinitions());       
         this.currentSections = new Stack<SectionDefinition>();
         this.numberingStack = new Stack<StackLevel>();
-        numberingStack.add(new StackLevel());
+        this.numberingStack.add(new StackLevel());
     }
     
     @Override
@@ -64,7 +64,7 @@ public class CollapsingSectionAnnotator extends ConsoleAnnotator<Object> {
         
         while (!currentSections.empty()) {
             SectionDefinition currentSection = currentSections.peek();
-			Matcher m = currentSection.getSectionEndPattern().matcher(text.getText().trim());
+            Matcher m = currentSection.getSectionEndPattern().matcher(text.getText().trim());
             if (m.matches()) {
                 popSection(text, m, currentSection);
                 if (currentSection.isCollapseOnlyOneLevel()) {
@@ -87,7 +87,7 @@ public class CollapsingSectionAnnotator extends ConsoleAnnotator<Object> {
     /**
      * Generates level prefix for further display.
      * @return section id (ex. "1.1 " for first subsection of first section)
-	 * TODO: Understand why space was added and what author meant here...
+     * TODO: Understand why space was added and what author meant here...
      */
     @Nonnull
     private String getCurrentSectionId() {
@@ -103,24 +103,38 @@ public class CollapsingSectionAnnotator extends ConsoleAnnotator<Object> {
     }
     
     private void pushSection(@Nonnull MarkupText text, @Nonnull Matcher m, @Nonnull SectionDefinition section) {
-        numberingStack.peek().increment();  
+        numberingStack.peek().increment(); 
+
+        String sectionNameDef = " data-section-definition-name=\"" + Util.escape(section.getSectionDisplayName()) + "\"";
+
         text.addMarkup(0,
-            "<div class=\"collapseSection " + ((section.isCollapseSection()) ? "collapsed" : "expanded") + "\" data-section-id=\"" + getCurrentSectionId()+"\">" +
+            "<div class=\"collapseSection " + ((section.isCollapseSection()) ? "collapsed" : "expanded") + "\" data-section-id=\"" + getCurrentSectionId() + "\"" + sectionNameDef + ">" +
                "<div class=\"collapseHeader collapseAction\">" +
                     "<a onClick=\"doToggle(this)\">" +getCurrentSectionId() + Util.escape(section.getSectionDisplayName(m)) + "</a>" +
                 "</div>" +
                 "<div class=\"collapseBody\">");
+
         numberingStack.add(new StackLevel());
+
         currentSections.push(section);
     }
     
     private void popSection(@Nonnull MarkupText text, @Nonnull Matcher m, @Nonnull SectionDefinition section) {
+
+        // Problem: stack contains possibly same sectionDefinition's - those are sectionDefinitions, not sectionInstances
         currentSections.pop();
         numberingStack.pop();
-        text.addMarkup(text.getText().length(), "</div><div class=\"collapseFooter collapseAction\">" +
-                "<a onClick=\"doToggle(this)\">" +
-				getCurrentSectionId() + Util.escape(section.getSectionDisplayName(m)) +
-				"</a></div></div>");
+        
+        String endName = section.getSectionDisplayName(m);
+        String classesString = "";
+
+        text.addMarkup(text.getText().length(),
+            "</div>" +
+                "<div class=\"collapseFooter collapseAction" + classesString + "\" >" +
+                    "<a onClick=\"doToggle(this)\">" +
+                        getCurrentSectionId() + Util.escape(endName) +
+                        //getCurrentSectionId() + Util.escape(section.getSectionDisplayName(m)) +
+            "</a></div></div>");
     }
     
     /**Enumerates stack levels for the numbering*/

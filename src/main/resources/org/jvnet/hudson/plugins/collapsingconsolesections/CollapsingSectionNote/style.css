@@ -18,6 +18,7 @@
 	transition: ease 0.15s;
 }
 .collapseFooter {
+    font-size: 110%;
 	text-align: left;
 	padding-left: 1em;
     border-bottom-style: solid;
@@ -30,6 +31,7 @@
 	display: block;
 	color: #bbb;
 	transition: ease 0.15s;
+	opacity: 0.8;
 }
 .collapseBody {
 	border-color: #d5d5d5;
@@ -46,6 +48,7 @@
 	border-color: #000000;
 	background-color: #888;
 	color: white;
+	opacity: 1;
 }
 .collapseSection:hover > .collapseBody {
 	border-color: #000000;
@@ -79,19 +82,38 @@
 
 .collapseSection.expanded > .collapseHeader > a::before {
 	content: "\021a5 ";
+	opacity: 0.5;
+	display: inline-block;
+	width: 1em;
 }
 .collapseSection.collapsed > .collapseHeader > a::before {
 	content: "\021a7 ";
+	opacity: 0.5;
+	display: inline-block;
+	width: 1em;
 }
 .collapseSection.expanded > .collapseFooter > a::before {
 	content: "\02912 ";
+	opacity: 0.5;
+	display: inline-block;
+	width: 1em;
 }
 .collapseSection.collapsed > .collapseFooter > a::before {
 	content: "\02913 ";
+	opacity: 0.5;
+	display: inline-block;
+	width: 1em;
 }
 
 .collapseSection.collapsed > .collapseBody {
     display: none;
+}
+
+.collapseSection.collapsed > .collapseBody.error {
+	display: block;
+}
+.collapseSection.collapsed > .collapseFooter.error {
+	background-color: red;
 }
 
 div.scrollAttached {
