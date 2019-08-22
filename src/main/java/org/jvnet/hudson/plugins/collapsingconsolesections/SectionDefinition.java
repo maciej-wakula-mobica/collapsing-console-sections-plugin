@@ -37,7 +37,7 @@ public class SectionDefinition implements Serializable {
     private String name;
     private Pattern start;
     private Pattern end;
-    private boolean collapseOnlyOneLevel;
+    private boolean collapseAllSections;
     private boolean collapseSection;
 
     /**
@@ -52,8 +52,8 @@ public class SectionDefinition implements Serializable {
      * @deprecated Use {@link #SectionDefinition(java.lang.String, java.lang.String, java.lang.String, boolean, boolean)} instead.
      */
     @Deprecated
-    public SectionDefinition(String sectionName, String sectionStartPattern, String sectionEndPattern, boolean collapseOnlyOneLevel) {
-        this(sectionName, sectionStartPattern, sectionEndPattern, collapseOnlyOneLevel, false);
+    public SectionDefinition(String sectionName, String sectionStartPattern, String sectionEndPattern, boolean collapseAllSections) {
+        this(sectionName, sectionStartPattern, sectionEndPattern, collapseAllSections, false);
     }
 
     /**
@@ -61,15 +61,15 @@ public class SectionDefinition implements Serializable {
      * @param sectionName Name of the section
      * @param sectionStartPattern Regular expression pattern for the section start
      * @param sectionEndPattern Regular expression pattern for the section end
-     * @param collapseOnlyOneLevel If {@code true}, only one level will be collapsed by the end pattern
+     * @param collapseAllSections If {@code true}, all sections will be collapsed by the end pattern
      * @param collapseSection If {@code true}, the section should be collapsed by default
      * @throws PatternSyntaxException One of the patterns is invalid
      */
-    public SectionDefinition(@Nonnull String sectionName, @Nonnull String sectionStartPattern, @Nonnull String sectionEndPattern, boolean collapseOnlyOneLevel, boolean collapseSection) throws PatternSyntaxException {
+    public SectionDefinition(@Nonnull String sectionName, @Nonnull String sectionStartPattern, @Nonnull String sectionEndPattern, boolean collapseAllSections, boolean collapseSection) throws PatternSyntaxException {
         name = sectionName;
         start = Pattern.compile(sectionStartPattern);
         end = Pattern.compile(sectionEndPattern);
-        this.collapseOnlyOneLevel = collapseOnlyOneLevel;
+        this.collapseAllSections = collapseAllSections;
         this.collapseSection = collapseSection;
     }
 
@@ -109,6 +109,6 @@ public class SectionDefinition implements Serializable {
         return collapseSection;
     }
     public boolean isCollapseOnlyOneLevel() {
-        return collapseOnlyOneLevel;
+        return !collapseAllSections;
     }
 }

@@ -64,8 +64,9 @@ public class CollapsingSectionAnnotator extends ConsoleAnnotator<Object> {
         
         while (!currentSections.empty()) {
             SectionDefinition currentSection = currentSections.peek();
-            if (currentSection.getSectionEndPattern().matcher(text.getText().trim()).matches()) {
-                popSection(text);
+			Matcher m = currentSection.getSectionEndPattern().matcher(text.getText().trim());
+            if (m.matches()) {
+                popSection(text, m, currentSection);
                 if (currentSection.isCollapseOnlyOneLevel()) {
                     break;
                 }
@@ -85,10 +86,11 @@ public class CollapsingSectionAnnotator extends ConsoleAnnotator<Object> {
     
     /**
      * Generates level prefix for further display.
-     * @return LEVEL_MARKER for each upper level
+     * @return section id (ex. "1.1 " for first subsection of first section)
+	 * TODO: Understand why space was added and what author meant here...
      */
     @Nonnull
-    private String getCurrentLevelPrefix() {
+    private String getCurrentSectionId() {
         StringBuilder str= new StringBuilder();
         if (configs.isNumberingEnabled()) {
             for (int i=0; i<currentSections.size()+1; i++) {
@@ -102,15 +104,22 @@ public class CollapsingSectionAnnotator extends ConsoleAnnotator<Object> {
     
     private void pushSection(@Nonnull MarkupText text, @Nonnull Matcher m, @Nonnull SectionDefinition section) {
         numberingStack.peek().increment();  
-        text.addMarkup(0, "<div class=\"section\" data-level=\""+getCurrentLevelPrefix()+"\"><div class=\"collapseHeader\">" + getCurrentLevelPrefix() + Util.escape(section.getSectionDisplayName(m)) + "<div class=\"collapseAction\"><p onClick=\"doToggle(this)\">" + ((section.isCollapseSection()) ? "Show Details" : "Hide Details") +"</p></div></div><div class=\"" + ((section.isCollapseSection()) ? "collapsed" : "expanded") + "\">");
+        text.addMarkup(0,
+            "<div class=\"collapseSection " + ((section.isCollapseSection()) ? "collapsed" : "expanded") + "\" data-section-id=\"" + getCurrentSectionId()+"\">" +
+               "<div class=\"collapseHeader\">" + getCurrentSectionId() + Util.escape(section.getSectionDisplayName(m)) +
+                    "<div class=\"collapseAction\">" +
+                        "<a onClick=\"doToggle(this)\">" + ((section.isCollapseSection()) ? "Show Details" : "Hide Details") + "</a>" +
+                    "</div>" +
+                "</div>" +
+                "<div class=\"collapseBody\">");
         numberingStack.add(new StackLevel());
         currentSections.push(section);
     }
     
-    private void popSection(@Nonnull MarkupText text) {
-        text.addMarkup(text.getText().length(), "</div></div>");
+    private void popSection(@Nonnull MarkupText text, @Nonnull Matcher m, @Nonnull SectionDefinition section) {
         currentSections.pop();
         numberingStack.pop();
+        text.addMarkup(text.getText().length(), "</div><div class=\"collapseFooter\">" + getCurrentSectionId() + Util.escape(section.getSectionDisplayName(m)) + "</div></div>");
     }
     
     /**Enumerates stack levels for the numbering*/

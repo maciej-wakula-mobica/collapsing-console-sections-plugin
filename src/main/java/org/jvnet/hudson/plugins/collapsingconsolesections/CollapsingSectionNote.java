@@ -54,21 +54,21 @@ public class CollapsingSectionNote extends ConsoleNote {
     private String sectionStartPattern;
     @Nonnull
     private String sectionEndPattern;
-    private boolean collapseOnlyOneLevel;
+    private boolean collapseAllSections;
     private boolean collapseSection;
 
     @DataBoundConstructor
-    public CollapsingSectionNote(@Nonnull String sectionDisplayName, @Nonnull String sectionStartPattern, @Nonnull String sectionEndPattern, boolean collapseOnlyOneLevel, boolean collapseSection) {
+    public CollapsingSectionNote(@Nonnull String sectionDisplayName, @Nonnull String sectionStartPattern, @Nonnull String sectionEndPattern, boolean collapseAllSections, boolean collapseSection) {
         this.sectionDisplayName = sectionDisplayName;
         this.sectionStartPattern = sectionStartPattern;
         this.sectionEndPattern = sectionEndPattern;
-        this.collapseOnlyOneLevel = collapseOnlyOneLevel;
+        this.collapseAllSections = collapseAllSections;
         this.collapseSection = collapseSection;
     }
 
     @Deprecated
-    public CollapsingSectionNote(String sectionDisplayName, String sectionStartPattern, String sectionEndPattern, boolean collapseOnlyOneLevel) {
-        this(sectionDisplayName, sectionStartPattern, sectionEndPattern, collapseOnlyOneLevel, false);
+    public CollapsingSectionNote(String sectionDisplayName, String sectionStartPattern, String sectionEndPattern, boolean collapseAllSections) {
+        this(sectionDisplayName, sectionStartPattern, sectionEndPattern, collapseAllSections, false);
     }
 
     @Nonnull
@@ -96,12 +96,12 @@ public class CollapsingSectionNote extends ConsoleNote {
     }
 
     public boolean isCollapseOnlyOneLevel() {
-        return collapseOnlyOneLevel;
+        return !collapseAllSections;
     }
 
     @Nonnull
     public SectionDefinition getDefinition() {
-        return new SectionDefinition(sectionDisplayName, sectionStartPattern, sectionEndPattern, collapseOnlyOneLevel, collapseSection);
+        return new SectionDefinition(sectionDisplayName, sectionStartPattern, sectionEndPattern, collapseAllSections, collapseSection);
     }
 
     @Override

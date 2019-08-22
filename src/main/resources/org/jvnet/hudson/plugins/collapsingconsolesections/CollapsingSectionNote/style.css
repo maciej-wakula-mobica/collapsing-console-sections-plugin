@@ -1,24 +1,39 @@
-div.collapseHeader {
+.collapseHeader {
     font-size: 110%;
     font-weight: bold;
-    text-align: center;
-    border-top: solid;
-    border-bottom: solid;
-    border-width: 1px;
+    text-align: left;
+    border-top: solid 1px black;
+	border-left: solid 1px black;
+	border-right: solid 1px black;
+	border-radius: 0.5em 0.5em 0 0;
     background-color: #d5d5d5;
+	display: block;
+}
+.collapseFooter {
+    border-bottom: solid;
+	border-left: solid;
+	border-right: solid;
+    border-width: 1px;
+	border-radius: 0 0 0.5em 0.5em;
+	border-color: black;
+    background-color: #d5d5d5;
+	display: block;
+	color: #bbb;
+}
+.collapseBody {
+	border-left: solid 1px black;
+	border-right: solid 1px black;
+	display: block;
 }
 
-div.collapseAction {
-    font-size: 10pt;
-    font-weight: normal;
+.collapseAction > a {
     text-align: left;
     text-decoration: underline;
-    margin-left: 5px;
-    margin-bottom: -7px;
+    margin-left: 1em;
     cursor: pointer;
 }
 
-div.expanded {
+.collapseSection.expanded > .collapseBody {
     display: block;
     border-bottom: solid lightgray;
     border-left: solid lightgray;
@@ -26,7 +41,7 @@ div.expanded {
     padding-left: 2px;
 }
 
-div.collapsed {
+.collapseSection.collapsed > .collapseBody{
     display: none;
 }
 
