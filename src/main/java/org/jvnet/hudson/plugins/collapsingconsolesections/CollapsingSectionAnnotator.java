@@ -106,10 +106,8 @@ public class CollapsingSectionAnnotator extends ConsoleAnnotator<Object> {
         numberingStack.peek().increment();  
         text.addMarkup(0,
             "<div class=\"collapseSection " + ((section.isCollapseSection()) ? "collapsed" : "expanded") + "\" data-section-id=\"" + getCurrentSectionId()+"\">" +
-               "<div class=\"collapseHeader\">" + getCurrentSectionId() + Util.escape(section.getSectionDisplayName(m)) +
-                    "<div class=\"collapseAction\">" +
-                        "<a onClick=\"doToggle(this)\">" + ((section.isCollapseSection()) ? "Show Details" : "Hide Details") + "</a>" +
-                    "</div>" +
+               "<div class=\"collapseHeader collapseAction\">" +
+                    "<a onClick=\"doToggle(this)\">" +getCurrentSectionId() + Util.escape(section.getSectionDisplayName(m)) + "</a>" +
                 "</div>" +
                 "<div class=\"collapseBody\">");
         numberingStack.add(new StackLevel());
@@ -119,7 +117,10 @@ public class CollapsingSectionAnnotator extends ConsoleAnnotator<Object> {
     private void popSection(@Nonnull MarkupText text, @Nonnull Matcher m, @Nonnull SectionDefinition section) {
         currentSections.pop();
         numberingStack.pop();
-        text.addMarkup(text.getText().length(), "</div><div class=\"collapseFooter\">" + getCurrentSectionId() + Util.escape(section.getSectionDisplayName(m)) + "</div></div>");
+        text.addMarkup(text.getText().length(), "</div><div class=\"collapseFooter collapseAction\">" +
+                "<a onClick=\"doToggle(this)\">" +
+				getCurrentSectionId() + Util.escape(section.getSectionDisplayName(m)) +
+				"</a></div></div>");
     }
     
     /**Enumerates stack levels for the numbering*/

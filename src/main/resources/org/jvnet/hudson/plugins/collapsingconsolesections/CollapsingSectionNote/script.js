@@ -1,38 +1,12 @@
 function doToggle(p)
 {
-    <!--
 	var section = p.parentNode.parentNode;
-    if (section.nextElementSibling) {
-		var cl = section.nextElementSibling.classList;
-        if (cl.contains("collapsed")) {
-            cl.add("expanded");
-            cl.remove("collapsed");
-            p.innerHTML = "xFold";
-        } else {
-            cl.remove("expanded");
-            cl.add("collapsed");
-            p.innerHTML = "xUnfold";
-        }
-    } else if (section.nextSibling.classList.contains("collapsed")) {
-        section.nextSibling.classList.add("expanded");
-        section.nextSibling.classList.remove("collapsed");
-        p.innerHTML = "xFold";
-    } else {
-        section.nextSibling.classList.add("collapsed");
-        section.nextSibling.classList.remove("expanded");
-        p.innerHTML = "xUnfold";
-    }
-	-->
-
-	var section = p.parentNode.parentNode.parentNode;
 	if (!section) return;
 	var cl = section.classList;
 	if (cl.contains("collapsed")) {
-		p.innerHTML = "Fold";
 		cl.remove("collapsed");
 		cl.add("expanded");
 	} else {
-		p.innerHTML = "Unold";
 		cl.add("collapsed");
 		cl.remove("expanded");
 	}

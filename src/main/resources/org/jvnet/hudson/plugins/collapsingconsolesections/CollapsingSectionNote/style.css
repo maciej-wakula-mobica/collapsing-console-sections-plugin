@@ -1,30 +1,63 @@
+.collapseSection {
+	margin-bottom: 1px;
+}
 .collapseHeader {
     font-size: 110%;
     font-weight: bold;
     text-align: left;
-    border-top: solid 1px black;
-	border-left: solid 1px black;
-	border-right: solid 1px black;
+	padding-left: 1em;
+	border-width: 1px;
+	border-color: #d5d5d5;
+    border-top-style: solid;
+	border-left-style: solid;
+	border-right-style: solid;
 	border-radius: 0.5em 0.5em 0 0;
     background-color: #d5d5d5;
 	display: block;
+	opacity: 0.8;
+	transition: ease 0.15s;
 }
 .collapseFooter {
-    border-bottom: solid;
-	border-left: solid;
-	border-right: solid;
+	text-align: left;
+	padding-left: 1em;
+    border-bottom-style: solid;
+	border-left-style: solid;
+	border-right-style: solid;
     border-width: 1px;
 	border-radius: 0 0 0.5em 0.5em;
-	border-color: black;
+	border-color: #d5d5d5;
     background-color: #d5d5d5;
 	display: block;
 	color: #bbb;
+	transition: ease 0.15s;
 }
 .collapseBody {
-	border-left: solid 1px black;
-	border-right: solid 1px black;
+	border-color: #d5d5d5;
+	border-left-style: solid;
+	border-right-style: solid;
+	border-width: 1px;
 	display: block;
+	opacity: 0.8;
 }
+.collapseBody:focus-within {
+	border-color: red;
+}
+.collapseSection:hover > .collapseHeader {
+	border-color: #000000;
+	background-color: #888;
+	color: white;
+}
+.collapseSection:hover > .collapseBody {
+	border-color: #000000;
+	opacity: 1;
+}
+.collapseSection:hover > .collapseFooter {
+	border-color: #000000;
+	background-color: #888;
+	color: white;
+	opacity: 1;
+}
+
 
 .collapseAction > a {
     text-align: left;
@@ -33,15 +66,31 @@
     cursor: pointer;
 }
 
-.collapseSection.expanded > .collapseBody {
-    display: block;
-    border-bottom: solid lightgray;
-    border-left: solid lightgray;
+.collapseBody {
+    border-right-style: solid;
+    border-left-style: solid;
+	border-color: lightgray;
     border-width: 1px;
     padding-left: 2px;
 }
+.collapseSection.expanded > .collapseBody {
+    display: block;
+}
 
-.collapseSection.collapsed > .collapseBody{
+.collapseSection.expanded > .collapseHeader > a::before {
+	content: "\021a5 ";
+}
+.collapseSection.collapsed > .collapseHeader > a::before {
+	content: "\021a7 ";
+}
+.collapseSection.expanded > .collapseFooter > a::before {
+	content: "\02912 ";
+}
+.collapseSection.collapsed > .collapseFooter > a::before {
+	content: "\02913 ";
+}
+
+.collapseSection.collapsed > .collapseBody {
     display: none;
 }
 
