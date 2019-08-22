@@ -46,7 +46,7 @@ public class SectionDefinition implements Serializable {
      * @deprecated Use {@link #SectionDefinition(java.lang.String, java.lang.String, java.lang.String, boolean, boolean)} instead.
      */
     @Deprecated
-    public SectionDefinition(String sectionName, String sectionStartPattern, String sectionEndPattern, String sectionMarker) {
+    public SectionDefinition(String sectionName, String sectionStartPattern, String sectionEndPattern) {
         this(sectionName, sectionStartPattern, sectionEndPattern, false, false);
     }
 

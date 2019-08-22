@@ -24,7 +24,7 @@ THE SOFTWARE.
 
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt" xmlns:p="/lib/hudson/project">
-  <f:section title="${%Collapsing Console Sections}">
+  <f:section title="${%Collapsing Console Sections mod by MAWK}">
     <f:entry title="${%Sections numbering}" field="numberingEnabled">
         <f:checkbox title="${%Enable sections numbering}" checked="${descriptor.numberingEnabled}"/>
     </f:entry>
