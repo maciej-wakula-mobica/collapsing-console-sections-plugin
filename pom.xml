@@ -31,7 +31,7 @@ THE SOFTWARE.
         <version>2.30</version>
     </parent>
 
-    <artifactId>collapsing-console-sections</artifactId>
+    <artifactId>collapsing-console-sections-mod-by-mawk</artifactId>
     <version>1.7.1-SNAPSHOT</version>
     <packaging>hpi</packaging>
     
@@ -56,6 +56,10 @@ THE SOFTWARE.
     </licenses>
 
     <developers>
+        <developer>
+            <id>mawk</id>
+            <name>Maciej Wakula</name>
+        </developer>
         <developer>
             <id>dty</id>
             <name>Dean Yu</name>
